@@ -62,12 +62,25 @@ function CrearPedidos() {
         //console.log(selects_tipo);
 
         //preguntamos al usuario invitado su nombre
-        if (nombreUsuario === null){
-            nombreUsuario = window.prompt('Cual es su nombre?');
-        }
 
-        if (nombreUsuario === '')
-            return window.alert('ERROR: Nombre no proporcionado.');
+        console.log(nombreUsuario);
+
+        if (nombreUsuario === 'Invitado'){
+            //respaldo para evitar confusiones en nombres
+            var temp = nombreUsuario;
+
+            nombreUsuario = window.prompt('Cual es su nombre?');
+            //console.log(nombreUsuario);
+            //Si el usuario presiona cancelar, oh bien, no escribe nada, mandar advertencia.
+            if (nombreUsuario === null){
+                nombreUsuario = temp;
+                return window.alert('Pedido Cancelado.');
+            }
+            if(nombreUsuario === ''){
+                nombreUsuario = temp;
+                return window.alert('Escribe un nombre viejo pendejo.');
+            }
+        }
 
         //creamos una variable que contendra cuantos tacos de que
         var pedidoTexto = '';
