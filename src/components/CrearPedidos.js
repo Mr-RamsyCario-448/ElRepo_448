@@ -62,23 +62,22 @@ function CrearPedidos() {
         //console.log(selects_tipo);
 
         //preguntamos al usuario invitado su nombre
-
-        console.log(nombreUsuario);
-
+        var nombreUsuarioInv = null; 
+        //console.log(nombreUsuario);
         if (nombreUsuario === 'Invitado'){
-            //respaldo para evitar confusiones en nombres
-            var temp = nombreUsuario;
 
-            nombreUsuario = window.prompt('Cual es su nombre?');
-            //console.log(nombreUsuario);
+            nombreUsuarioInv = window.prompt('Cual es su nombre?');
             //Si el usuario presiona cancelar, oh bien, no escribe nada, mandar advertencia.
-            if (nombreUsuario === null){
-                nombreUsuario = temp;
+
+            if (nombreUsuarioInv === null){
                 return window.alert('Pedido Cancelado.');
             }
-            if(nombreUsuario === ''){
-                nombreUsuario = temp;
-                return window.alert('Escribe un nombre viejo pendejo.');
+            else if(nombreUsuarioInv === ''){
+                return window.alert('Por favor, diga un nombre.');
+            }
+            //se cambia el nombre unicamente cuando se proporciona un nombre.
+            else {
+                datosUsuario.nombre_cliente = nombreUsuarioInv;
             }
         }
 
@@ -90,8 +89,8 @@ function CrearPedidos() {
         }
 
 
-        var confirmarPedido = window.confirm('El pedido es:'+
-        'Nombre de Cliente: ' +nombreUsuario + '\n' +
+        var confirmarPedido = window.confirm('El pedido es:\n'+
+        'Nombre de Cliente: ' + datosUsuario.nombre_cliente + '\n' +
         'Son: ' + pedidoTexto + '\n' +
         'Notas: ' + datosUsuario.notas + '\n' + 'Confirmar?'
         )
@@ -146,14 +145,13 @@ function CrearPedidos() {
     
 
     //si no existe o es nulo, se escribe invitado, en otro caso el nombreUsuario ya se escribe en la barra de navegacion
-    if (nombreUsuario === null)
-        nombreUsuario = 'Invitado';
     
     var botonSesion = "Iniciar";
     //preguntamos si tiene el token de inicio de sesion.
     if(isAuthenticated){
         //console.log('token given!')
         var botonSesion = "Cerrar";
+        datosUsuario.nombre_cliente = nombreUsuario;
         }
 
 
@@ -191,6 +189,7 @@ function CrearPedidos() {
         <Helmet>
 
         <script>
+            /*
             console.log('bruh');
 
             //guardamos en memoria local el contenido de que tacos pidio
@@ -206,7 +205,7 @@ function CrearPedidos() {
             document.getElementById('selector-tacos').innerHTML = contenidoTabla;
 
             localStorage.setItem("sus",'por que me tocas el chilito');
-
+            */
 
         </script>
 
@@ -286,5 +285,3 @@ function CrearPedidos() {
 }
 
 export default CrearPedidos;
-
-
