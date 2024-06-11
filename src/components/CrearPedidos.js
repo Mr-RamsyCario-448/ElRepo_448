@@ -153,6 +153,8 @@ function CrearPedidos() {
         var botonSesion = "Cerrar";
         datosUsuario.nombre_cliente = nombreUsuario;
         }
+        else
+            nombreUsuario = 'Invitado';
 
 
     
