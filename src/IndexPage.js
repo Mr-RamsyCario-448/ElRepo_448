@@ -5,6 +5,8 @@ function IndexPage(){
     
     //logica de token
     const isAuthenticated = localStorage.getItem('token');
+
+    const userName = localStorage.getItem('userName');
     
     var botonSesion = "Iniciar";
     //preguntamos si tiene el token de inicio de sesion.
@@ -12,7 +14,6 @@ function IndexPage(){
         //console.log('token given!')
         var botonSesion = "Cerrar";
         }
-    
 
     //debido a que es la ventana principal, solamente cambia el
     //boton de Iniciar o Cerrar Sesion.
@@ -23,6 +24,7 @@ function IndexPage(){
             window.location.href = '/';
             //esto destruye el token
             localStorage.removeItem('token');
+            localStorage.removeItem('userName');
             localStorage.removeItem('userRole');
         }
         else{
