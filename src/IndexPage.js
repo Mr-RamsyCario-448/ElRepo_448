@@ -46,7 +46,7 @@ function IndexPage(){
             {/*<a id="nav-pedidos" href="/pedidos">Pedidos</a>*/}
             <a id="nav-sesion"  onClick={sesion} href="#">{botonSesion} Sesión</a>
 
-            <a class="contPerfilUsuario"> <img></img> <span>Hola, Invitado!</span> </a>
+            <a class="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span> </a>
 
         </nav>
 
