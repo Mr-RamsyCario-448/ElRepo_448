@@ -15,7 +15,6 @@ const InsertUser = () => {
         window.location.href = '/login';
     }
 
-
     const backtoDashBoard = async => {
         window.location.href = '/dashboard';
     };
@@ -69,7 +68,9 @@ const InsertUser = () => {
         alert("Sesion cerrada.")
         window.location.href = '/';
         //esto destruye el token
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
     };
 
     var botonSesion = "Iniciar Sesion";
@@ -84,13 +85,13 @@ const InsertUser = () => {
     return (
         <>
 
-        <nav class="barraNavegacion">
+        <nav className="barraNavegacion">
             <a href="/">Inicio</a>
             <a href="/pedidos">Pedidos</a>
             <a href="#" onClick={logOut}>{botonSesion}</a>
         </nav>
 
-        <div class="contenedorinsertUser">
+        <div className="contenedorinsertUser">
             <h1>Insertar nuevo usuario</h1>
             <form onSubmit={handleSubmit}>
                 <input placeholder="Usuario" type="text" id="user" user="user" value={formData.user} onChange={handleInputChange} required /><br /><br />
@@ -108,9 +109,9 @@ const InsertUser = () => {
                         <option value="Admin">Admin</option>
                     </select><br /><br />
 
-                <button class="commonButton" type="submit">Registrar usuario</button>
+                <button className="commonButton" type="submit">Registrar usuario</button>
             </form>
-        <button class="commonButton" onClick={backtoDashBoard}>Regresar a Dashboard</button>
+        <button className="commonButton" onClick={backtoDashBoard}>Regresar a Dashboard</button>
         </div>
         </>
     );

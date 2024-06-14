@@ -17,13 +17,13 @@ const UpdateUser = ({ isOpen, onClose, onSubmit, oldUsername }) => {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose}>
-      <div class="contenedorUpdateUser">
+      <div className="contenedorUpdateUser">
 
       <div>
       <br>
       </br>
       <h3>Usuario a Modificar:</h3>
-      <p class="usuarioObjetivo">{oldUsername}</p>
+      <p className="usuarioObjetivo">{oldUsername}</p>
       
       <h2>Ingresa los nuevos datos.</h2>
       <input
@@ -53,9 +53,9 @@ const UpdateUser = ({ isOpen, onClose, onSubmit, oldUsername }) => {
           </select>
           <br />
 
-      <div class="botonesUpdate">
-      <button class="botonGuardar" onClick={handleSubmit}> <span>Guardar</span></button>
-      <button class="botonCancelar" onClick={onClose}> <span>Cancelar</span> </button>
+      <div className="botonesUpdate">
+      <button className="botonGuardar" onClick={handleSubmit}> <span>Guardar</span></button>
+      <button className="botonCancelar" onClick={onClose}> <span>Cancelar</span> </button>
       </div>
       </div>
 

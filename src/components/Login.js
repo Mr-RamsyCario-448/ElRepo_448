@@ -39,7 +39,7 @@ function Login() {
       if (response && response.data) {
         setMessage(response.data.message);
         //window.alert('Inicio de sesion correcto!');
-        return window.location.href = '/dashboard'; }
+        return window.location.href = '/'; }
         
       else {setMessage('Error: Respuesta inválida del servidor');}
     } catch (error) { setMessage(error.response.data.message); }

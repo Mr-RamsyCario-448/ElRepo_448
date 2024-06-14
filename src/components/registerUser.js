@@ -66,7 +66,7 @@ const RegisterUser = () => {
     
 
     return (
-        <div class="contenedorRegistroUser">
+        <div className="contenedorRegistroUser">
             
             <form onSubmit={handleSubmit}>
                 <h1>Registrarse</h1>
@@ -77,12 +77,12 @@ const RegisterUser = () => {
 
                 <div>
                 <input placeholder="Contraseña" type="password" id="passw" user="passw" value={formData.passw} onChange={handleInputChange} required />
-                <button class="botonMostrarPW" type="button" onClick={showPassword}></button>
+                <button className="botonMostrarPW" type="button" onClick={showPassword}></button>
                 </div>
 
-                <button class="commonButton" type="submit">Registrarse</button>
+                <button className="commonButton" type="submit">Registrarse</button>
                 <br></br>
-                <button class="regresaraLogin" type="button" onClick={returntoLogin}>Cancelar</button>
+                <button className="regresaraLogin" type="button" onClick={returntoLogin}>Cancelar</button>
             </form>
         </div>
     );

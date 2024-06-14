@@ -14,7 +14,7 @@ function Pedidos_DashBoard(){
             const data = await response.json();
             // Update state with fetched data
             setPedidosData(data);
-            console.log(data);
+            //console.log(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -29,6 +29,10 @@ function Pedidos_DashBoard(){
     //logica de token
     const isAuthenticated = localStorage.getItem('token');
 
+    const userName = localStorage.getItem('userName');
+
+    const userRole = localStorage.getItem('userRole');
+
     //debido a que es la ventana principal, solamente cambia el
     //boton de Iniciar o Cerrar Sesion.
 
@@ -37,7 +41,9 @@ function Pedidos_DashBoard(){
         alert("Sesion cerrada.")
         window.location.href = '/';
         //esto destruye el token
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
     };
 
     var botonSesion = "Cerrar";
@@ -45,49 +51,65 @@ function Pedidos_DashBoard(){
     if(!isAuthenticated)
         //console.log('token given!')
         window.location.href = '/login';
+
+    if(!userRole === 'Admin'){
+        window.location.href = '/login';
+    }
     
-    //debido a que es la ventana principal, solamente cambia el
-    //boton de Iniciar o Cerrar Sesion.
+    //dar formato a lo de pedidos
 
-    //vamos a pre mapear los valores del pedido
+    //cuantos tacos
+    //const cuantostacos = pedidosData;
 
-    //creamos una variable que contendra cuantos tacos de que
-    var pedidoTexto = '';
+    //de que son
+    //const tipostacos = pedidosData.select_tipos;
+    
+    //console.log(cuantostacos);
 
-        //logica para agregar elementos para el pedido
-    const [selects_cuantos, setSelects_cuantos] = useState([0]);
-    const [selects_tipo, setSelects_tipo] = useState([0]);
+    const deletePedido = async (id_pedido) => {
 
-    /*var pedidoTexto = '';
-
-        for(var i = 0; i<pedido.selects_cuantos.length; i++){
-            pedidoTexto = pedidoTexto +
-            selects_cuantos[i] + ' ' +selects_tipo[i] + '\n';
-        }*/
-    //console.log(pedidoTexto);
+        if (window.confirm('Eliminar el pedido '+id_pedido+'?')) {
+            try {
+                // Perform API call to delete user
+                await fetch(`http://localhost:3001/deluser/${id_pedido}`, {
+                    method: "DELETE",
+                });
+                // Refetch data after deletion
+                fetchData();
+            } catch (error) {
+                console.error("Error deleting user:", error);
+            }
+          }
+          else {
+                console.log('canceled')
+          }
+    };
 
     var numPedido = 0;
 
     return(
         <>
-        <nav class="barraNavegacion">
+        <nav className="barraNavegacion">
             <a href="/">Inicio</a>
-            <a href="/pedidos">Pedidos</a>
+            <a href="/dashboard">Usuarios</a>
             <a href="#" onClick={logOut}>{botonSesion} Sesión</a>
+            
+            <a className="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span></a>
         </nav>
 
-        <div class="contenedorIndex">
+        <div className="contenedorIndex">
         <h1>Pagina de Pedidos</h1>
         <p>Esta es la pagina de Pedidos</p>
         </div>
 
-        <div class="pedidosFondo">
-        <table class="tablaUsuarios">
+        <div className="pedidosFondo">
+        <table className="tablaUsuarios">
                     <thead>       
                         <tr>
                            {/* <th>ID Pedido</th>*/}
+                            <th>ID Pedido</th>
                             <th>Nombre de Cliente</th>
-                            <th>Articulos</th>
+                            <th>Pedido</th>
                             <th>Notas</th>
                             <th>Acciones</th>
                         </tr>
@@ -96,22 +118,26 @@ function Pedidos_DashBoard(){
                         {pedidosData.map((pedido) => (
                             <>
                             {/*Previo al mappeo de los datos vamos a modificar los valores de articulos*/}
-                            
 
-
-                            <tr class="filaUsers" key={pedido.nombre_cliente}>
+                            <tr className="filaUsers" key={pedido.nombre_cliente}>
                                 {/*<td>{pedido.id}</td>*/}
                                 {/*por cada pasada que da el script se suma +1 */}
-
+                                <td>mamadas</td>
                                 <td>{pedido.datosUsuario.nombre_cliente}</td>
-                                <td>{[pedido.selects_cuantos[0] + ' ' + pedido.selects_tipo [0] + '\n' ,
-
-                            ]}</td>
+                                {/*Esto mappea automaticamente los datos.*/}
+                                <td className="tacos">
+                                    {
+                                    pedido.selects_cuantos.map((cuantos, index) => (
+                                        <div key={index}>
+                                            {cuantos} {pedido.selects_tipo[index]}
+                                        </div>
+                                    ))}
+                                </td>
                                 
                                 <td>{pedido.datosUsuario.notas}</td>
-                                <td class="optionButtons">
-                                    <button class="botonModificar" > <span>Modificar</span> </button>
-                                    <button class="botonEliminar" > <span>Eliminar</span> </button>
+                                <td className="optionButtons">
+                                    <button className="botonModificar" > <span>Modificar</span> </button>
+                                    <button className="botonEliminar" /*onClick={() => deletePedido(user.user)}*/ > <span>Eliminar</span> </button>
                                 </td>
                             </tr>
                             

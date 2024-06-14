@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 function IndexPage(){
     //ocultar pedidos cuando sea un usuario cliente o nuevo
@@ -6,7 +7,9 @@ function IndexPage(){
     //logica de token
     const isAuthenticated = localStorage.getItem('token');
 
-    const userName = localStorage.getItem('userName');
+    const userRole = localStorage.getItem('userRole');
+
+    var userName = localStorage.getItem('userName');
     
     var botonSesion = "Iniciar";
     //preguntamos si tiene el token de inicio de sesion.
@@ -14,6 +17,8 @@ function IndexPage(){
         //console.log('token given!')
         var botonSesion = "Cerrar";
         }
+        else
+            userName = 'Invitado';
 
     //debido a que es la ventana principal, solamente cambia el
     //boton de Iniciar o Cerrar Sesion.
@@ -38,42 +43,80 @@ function IndexPage(){
         //proximamente: agregar un icono con foto de perfil y nombre del usuario.
         window.location.href = '/crear_pedido';
     }
+    //es necesario el Stringify ya que sin ello la palabra 'Admin' es tomada como referencia en vez de texto, queremos que sea texto.
+    //solo existen dos casos, donde sea admin y donde no lo es.
+    const scriptRolUsuario = `
+    
+    if(${JSON.stringify(userRole)} === 'Admin'){
+        document.getElementById("nav-pedidos").style.visibility = "visible";
+        document.getElementById("nav-users").style.visibility = "visible";
+
+    }
+    else{
+        document.getElementById("nav-pedidos").style.display = "none";
+        document.getElementById("nav-users").style.display = "none";
+    }
+
+    `;
 
     return(
         <>
-        <nav class="barraNavegacion">
+        <Helmet>
+            <script>
+                
+                    {scriptRolUsuario}
+                
+            </script>
+        </Helmet>
+
+        <nav className="barraNavegacion">
             <a id="nav-inicio" href="/">Inicio</a>
             {/*<a id="nav-pedidos" href="/pedidos">Pedidos</a>*/}
+
+            {
+            /*Seccion para hacer visible o invisble*/
+            <>
+
+            <a id="nav-pedidos" href="/pedidos">Pedidos</a>
+            
+            <a id="nav-users" href="/dashboard">Usuarios</a>
+
+            </>
+            }
+
             <a id="nav-sesion"  onClick={sesion} href="#">{botonSesion} Sesión</a>
 
-            <a class="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span> </a>
+            <a className="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span></a>
+
+
+
 
         </nav>
 
-        <div class="contenedorIndex">
+        <div className="contenedorIndex">
         <h1>Pagina de Inicio</h1>
         <p>Esta es la pagina de Inicio</p>
         
-        <button class="commonButton" onClick={realizarPedido}>Realizar Pedido</button>
+        <button className="commonButton" onClick={realizarPedido}>Realizar Pedido</button>
         </div>
-        <div class="textoInferior">
-            <section class="productoTaco" >
+        <div className="textoInferior">
+            <section className="productoTaco" >
             <div id="taco-birria"></div>
             <p>Tacos de Birria</p>
             </section>
 
-            <section class="productoTaco" >
+            <section className="productoTaco" >
             <div id="taco-bistek"></div>
             <p>Tacos de Bistek</p>
             </section>
             
-            <section class="productoTaco" >
+            <section className="productoTaco" >
             <div id="taco-chorizo"></div>
             <p>Tacos de Chorizo</p>
             </section>
 
             
-            <section class="productoTaco" >
+            <section className="productoTaco" >
             <div id="taco-cabeza"></div>
             <p>Tacos de Cabeza</p>
             </section>

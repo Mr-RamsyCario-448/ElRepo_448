@@ -26,7 +26,7 @@ function CrearPedidos() {
         //handleAddTipo(e.target.value);
     }*/
    
-    const [datosUsuario, setFormData] = useState({
+    const [datosUsuario, setDatosForm] = useState({
         nombre_cliente: 'Invitado',//Valor: 'Invitado' por defecto
         notas: ''
     });
@@ -45,7 +45,7 @@ function CrearPedidos() {
             setSelects_tipo(newSelectsTipos);
 
         } else {
-            setFormData({
+            setDatosForm({
                 ...datosUsuario,
                 ['nombre_cliente'] : nombreUsuario,
                 [e.target.name]: e.target.value
@@ -53,41 +53,46 @@ function CrearPedidos() {
         }
     };
 
+
+    //SECCION PARA INSERCION DE DATOS
+
+    const crearTablaArticuloPedidos = () =>{
+    //creamos una variable que contendra cuantos tacos de que
+    var pedido = '';
+    for(var i = 0; i<selects_cuantos.length; i++){
+        pedido = pedido +
+        selects_cuantos[i] + ' ' +selects_tipo[i] + '\n';
+    }
+    return pedido;
+
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission, e.g., send data to MongoDB Atlas
 
-        //console.log(datosUsuario);
-        //console.log(selects_cuantos);
-        //console.log(selects_tipo);
-
         //preguntamos al usuario invitado su nombre
-        var nombreUsuarioInv = null; 
-        //console.log(nombreUsuario);
         if (nombreUsuario === 'Invitado'){
 
-            nombreUsuarioInv = window.prompt('Cual es su nombre?');
+            var nombreUsuarioNew = window.prompt('Cual es su nombre?');
+            //console.log(nombreUsuario);
             //Si el usuario presiona cancelar, oh bien, no escribe nada, mandar advertencia.
-
-            if (nombreUsuarioInv === null){
+            if (nombreUsuarioNew === null)
                 return window.alert('Pedido Cancelado.');
-            }
-            else if(nombreUsuarioInv === ''){
-                return window.alert('Por favor, diga un nombre.');
-            }
-            //se cambia el nombre unicamente cuando se proporciona un nombre.
-            else {
-                datosUsuario.nombre_cliente = nombreUsuarioInv;
-            }
-        }
+            
 
-        //creamos una variable que contendra cuantos tacos de que
-        var pedidoTexto = '';
-        for(var i = 0; i<selects_cuantos.length; i++){
-            pedidoTexto = pedidoTexto +
-            selects_cuantos[i] + ' ' +selects_tipo[i] + '\n';
-        }
+            if(nombreUsuarioNew === '')
+                return window.alert('Escribe un nombre por favor.');
 
+            datosUsuario.nombre_cliente = nombreUsuarioNew;
+
+        }
+        
+
+        const pedidoTexto = crearTablaArticuloPedidos();    
+
+        //console.log('Nombre en la chingadera de form es: '+datosUsuario.nombre_cliente);
 
         var confirmarPedido = window.confirm('El pedido es:\n'+
         'Nombre de Cliente: ' + datosUsuario.nombre_cliente + '\n' +
@@ -117,10 +122,10 @@ function CrearPedidos() {
 
             if (response.ok) {
                 if(response.status === 201){
-                    alert('Usuario ya existente.')
+                    alert('WTF XD')
                 }
                 else{
-                    alert('Datos de pedido insertados correctamente!.');
+                    alert('Pedido enviado!');
                 }
             } else {
                 alert('Error inserting data');
@@ -132,7 +137,7 @@ function CrearPedidos() {
 
 
         // Reset form after submission if needed
-        setFormData({
+        setDatosForm({
             notas: ''
         });
     };
@@ -143,18 +148,16 @@ function CrearPedidos() {
     //Buscamos el nombre de Usuario en memoria local del sistema
     var nombreUsuario = localStorage.getItem('userName');
     
-
     //si no existe o es nulo, se escribe invitado, en otro caso el nombreUsuario ya se escribe en la barra de navegacion
+    if (nombreUsuario === null)
+        nombreUsuario = 'Invitado';
     
     var botonSesion = "Iniciar";
     //preguntamos si tiene el token de inicio de sesion.
     if(isAuthenticated){
         //console.log('token given!')
-        var botonSesion = "Cerrar";
-        datosUsuario.nombre_cliente = nombreUsuario;
+        botonSesion = "Cerrar";
         }
-        else
-            nombreUsuario = 'Invitado';
 
 
     
@@ -162,7 +165,7 @@ function CrearPedidos() {
             if (botonSesion === "Cerrar"){
                 //window.alert("Sesion cerrada.");
                 window.location.href = '/';
-                //esto destruye el token
+                //esto destruye el token, nombre del usuario y su rol
                 localStorage.removeItem('token');
                 localStorage.removeItem('userRole');
                 localStorage.removeItem('userName');
@@ -173,6 +176,7 @@ function CrearPedidos() {
         };    
     
         //previene un refresh de la pagina, una forma de evitar que se pierdan los datos de pedido
+    
     useEffect(() => {
             const handleBeforeUnload = (event) => {
               event.preventDefault();
@@ -188,30 +192,6 @@ function CrearPedidos() {
 
     return (
         <>
-        <Helmet>
-
-        <script>
-            /*
-            console.log('bruh');
-
-            //guardamos en memoria local el contenido de que tacos pidio
-            var contenidoTablaRespaldo;
-
-            contenidoTablaRespaldo = document.getElementById("selector-tacos").innerHTML;
-
-            localStorage.setItem("pedidosContent",contenidoTablaRespaldo);
-
-            //si existe una tabla en memoria, usarla
-            var contenidoTabla = localStorage.getItem('pedidosContent');
-
-            document.getElementById('selector-tacos').innerHTML = contenidoTabla;
-
-            localStorage.setItem("sus",'por que me tocas el chilito');
-            */
-
-        </script>
-
-        </Helmet>
 
         <div class="contenedor-pedidos-clientes">
             {/*Barra de navegacion*/}

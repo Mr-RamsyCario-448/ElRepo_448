@@ -42,6 +42,7 @@ function Dashboard(){
 
     const isAdmin = localStorage.getItem('userRole');
 
+    const userName = localStorage.getItem('userName');
 
     //preguntamos si tiene el token de inicio de sesion.
     if(isAuthenticated && isAdmin === 'Admin'){
@@ -172,14 +173,16 @@ function Dashboard(){
     
 
 
-        <nav class="barraNavegacion">
+        <nav className="barraNavegacion">
             <a href="/">Inicio</a>
             <a href="/pedidos">Pedidos</a>
             <a href="#" onClick={logOut}>{botonSesion}</a>
+            
+            <a className="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span></a>
         </nav>
 
         <section>
-        <div class="contenedorDashboard">
+        <div className="contenedorDashboard">
         <input
           type="text"
           placeholder="Usuario"
@@ -188,20 +191,20 @@ function Dashboard(){
         />
         <section>
         <button
-        class="commonButton"
+        className="commonButton"
         onClick={buscaUsuario}>
             Buscar
             </button>
 
             <button
-        class="commonButton"
+        className="commonButton"
         onClick={fetchData}>
             Mostrar todos
             </button>
    
         </section>
 
-        <table class="tablaUsuarios">
+        <table className="tablaUsuarios">
                     <thead>
                         
                         <tr>
@@ -214,13 +217,13 @@ function Dashboard(){
                     <tbody>
                         {userData.map((user) => (
                             <>
-                            <tr class="filaUsers" key={user.user}>
+                            <tr className="filaUsers" key={user.user}>
                                 <td>{user.user}</td>
                                 <td>{user.passw}</td>
                                 <td>{user.role}</td>
-                                <td class="optionButtons">
-                                    <button class="botonModificar" onClick={() => updateUser(user.user)}> <span>Modificar</span> </button>
-                                    <button class="botonEliminar" onClick={() => deleteUser(user.user)}> <span>Eliminar</span> </button>
+                                <td className="optionButtons">
+                                    <button className="botonModificar" onClick={() => updateUser(user.user)}> <span>Modificar</span> </button>
+                                    <button className="botonEliminar" onClick={() => deleteUser(user.user)}> <span>Eliminar</span> </button>
                                 </td>
                             </tr>
                             
@@ -229,7 +232,7 @@ function Dashboard(){
                         }
                     </tbody>
         <>
-        <button class="botonAgregar" onClick={createUser}> <span>Crear nuevo usuario</span> </button>
+        <button className="botonAgregar" onClick={createUser}> <span>Crear nuevo usuario</span> </button>
         </>            
         </table>
                                     <UpdateUser
@@ -238,7 +241,7 @@ function Dashboard(){
                                         onSubmit={handleSubmitUpdate}
                                         oldUsername={oldUserName}
                                     />
-        {//<button class="commonButton" onClick={logOut}>Cerrar Sesion</button>}
+        {//<button className="commonButton" onClick={logOut}>Cerrar Sesion</button>}
     }
         </div>
         </section>
