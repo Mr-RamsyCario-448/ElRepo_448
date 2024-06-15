@@ -10,7 +10,6 @@ function Login() {
   const handleLogin = async () => {
 
     try {
-
       if (user == '' || passw == ''){
         return window.alert('Falta llenar alguno de los campos.');
       }
@@ -19,10 +18,10 @@ function Login() {
         user,
         passw,
       });
-      //genera un Token al iniciar sesion
-      localStorage.setItem('token', response.token);
 
-      //console.log(response.data.rol);
+
+      //genera un Token al iniciar sesion
+      localStorage.setItem('token', response.data.token);
 
       localStorage.setItem ('userRole', response.data.rol);
 

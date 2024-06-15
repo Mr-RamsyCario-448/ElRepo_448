@@ -396,3 +396,30 @@ button:hover span{
     width: 70%;
 }
 
+/*SECCION MODAL PEDIDOS*/
+
+.contenedorUpdatePedido{
+    background-color: #282828;
+    width: 104%;
+    height: 108.55%;
+    margin: -50px;
+}
+
+.contenedorUpdatePedido div{
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.pedidoObjetivo{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.selector-tacos-modal{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.select-cuantos-tacos-modal{
+    width: 20%;
+}

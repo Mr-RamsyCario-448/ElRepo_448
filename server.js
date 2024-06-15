@@ -1,15 +1,12 @@
-//pw: jSBbGIiES0zXb9vC
-//uri: mongodb+srv://al20020726:<passw>@clusterisic8s.hdwmx2j.mongodb.net/?retryWrites=true&w=majority&appName=ClusterISIC8S
-
 // server.js
+//SECCION DE MANEJO DE LIBRERIAS Y VARIABLES
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-
-const saltRounds = 10;
 
 const app = express();
 const port = 3001;
@@ -24,21 +21,17 @@ then(() => {
   console.log('Connected to MongoDB Atlas');
 }).catch(err => console.error(err));
 
+
+//SECION PARA MANEJO DE USUARIOS
+{
 const UserSchema = new mongoose.Schema({
   user: String,
   passw: String,
   role: String
 });
 
-const SchemaPedidos = new mongoose.Schema({
-  selects_cuantos : Array,
-  selects_tipo : Array,
-  datosUsuario: Object,
-});
-
 const User = mongoose.model('users', UserSchema);
 
-const Pedidos = mongoose.model('pedidos', SchemaPedidos);
 
 app.post('/login', async (req, res) => {
   const { user, passw } = req.body;
@@ -64,7 +57,7 @@ app.post('/login', async (req, res) => {
     //console.log(userf.role);
     
 
-    return res.status(200).json({ message: 'Login exitoso',rol: userf.role, username: userf.user});
+    return res.status(200).json({ message: 'Login exitoso',rol: userf.role, username: userf.user, token: generadorToken()});
   } catch (error) {
     console.error('Error logging in:', error);
     return res.status(500).json({ message: 'Error logging in' });
@@ -203,10 +196,21 @@ app.put('/updateUser/:olduser', async (req, res) => {
       res.status(500).json({ message: 'Internal server error'});
   }
 });
+}
 
-//SECCION PARA INSERCIONES DE PEDIDOS
+{
+//SECCION PARA MANEJO DE PEDIDOS
+const SchemaPedidos = new mongoose.Schema({
+  //este tipo de dato es para obtener y eliminar registros a traves de su ObjectID
+  _id : mongoose.Schema.Types.ObjectId,
+  selects_cuantos : Array,
+  selects_tipo : Array,
+  datosUsuario: Object
+});
 
-//UserPedidos es el nuevo modelo
+const Pedidos = mongoose.model('pedidos', SchemaPedidos);
+
+//SchemaPedidos es el nuevo modelo
 
 // Handle POST request
 app.post('/insertPedido', async (req, res) => {
@@ -232,14 +236,15 @@ app.post('/insertPedido', async (req, res) => {
   }
 });
 
+
 //obtener datos de pedidos
 app.get('/pedidos', async (req, res) => {
   try {
-    const pedidos = await Pedidos.find({}, { _id: 0, __v: 0 }); // Excluir el __v de la respuesta
- 
+    const pedidos = await Pedidos.find().select('-__v'); // Excluding the __v field from the response
+
     // Verificar si se encontraron pedidos
     if (pedidos.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron usuarios' });
+      return res.status(404).json({ message: 'No se encontraron pedidos' });
     }
 
     // Devolver la lista de pedidos
@@ -251,9 +256,65 @@ app.get('/pedidos', async (req, res) => {
 });
 
 
+// Eliminar pedido utilizando su ID
+app.delete('/delpedido/:id_pedido', async (req, res) => {
+  const id_pedido = req.params.id_pedido;
+  //console.log(id_pedido);
+  try {
+    const deletedUser = await Pedidos.findOneAndDelete({ _id: id_pedido});
+    //console.log('usuario es:'+username)
+    if (deletedUser) {
+      return res.status(200).json({ message: 'Pedido eliminado exitosamente' });
+    } else {
+      return res.status(404).json({ message: 'Pedido no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error interno del servidor' });
+  }
+});
+
+
+// Actuaizar un pedido
+app.put('/updatePedido/:id_pedido', async (req, res) => {
+
+  const oldusername = req.params.olduser;
+  const newUser = req.body.user;
+  const newPassw = req.body.passw; 
+  const choosenRole = req.body.role;
+  //const userNewData = req.body;
+
+  try {
+      const filter = { user: oldusername };
+      const   updateDoc = { 'user':newUser,'passw':newPassw, 'role':choosenRole };
+      
+      // Update the document in the collection
+      const result = await User.updateOne(filter, updateDoc);
+
+      if (result.modifiedCount === 1) {
+          res.status(200).json({ message: 'User updated successfully'});
+      } else {
+          res.status(404).json({ message: 'User not found'});
+      }
+  } catch (error) {
+      console.error('Error updating user:', error);
+      res.status(500).json({ message: 'Internal server error'});
+  }
+});
+
+}
 
 
 
+//function to generate a Token
+
+var generadorLetras = function() {
+  return Math.random().toString(36).substr(2); // remove `0.`
+};
+
+var generadorToken = function() {
+  return generadorLetras() + generadorLetras(); // to make it longer
+};
 
 // Serve the index.html file
 app.get('/', (req, res) => {

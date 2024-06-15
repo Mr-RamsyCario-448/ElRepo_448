@@ -1,7 +1,7 @@
 //import React from "react";
 import React, { useState, useEffect } from "react";
 import UpdateUser from "./updateUser";
-import Pedidos_DashBoard from "./Pedidos_DashBoard";
+
 
 const bcrypt = require('bcryptjs');
 const saltRounds = 10; // Number of salt rounds for bcrypt hashing
@@ -56,7 +56,7 @@ function Dashboard(){
     //pop up para modificar datos
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleOpenModal = () => {
+    const handleOpenModalUsers = () => {
         setIsModalOpen(true);
     };
 
@@ -158,21 +158,14 @@ function Dashboard(){
                 console.log('canceled')
           }
     };
-
     //update
-
-
-
     const updateUser = (username) => {
         setOldUserName(username);
-        handleOpenModal();
+        handleOpenModalUsers();
     };
 
     return(
         <>
-    
-
-
         <nav className="barraNavegacion">
             <a href="/">Inicio</a>
             <a href="/pedidos">Pedidos</a>

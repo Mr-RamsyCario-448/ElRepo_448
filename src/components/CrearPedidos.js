@@ -1,7 +1,6 @@
 // Login.js
 import React, { useState, useEffect } from 'react';
 //helmet permite ejecutar scripts en Return
-import { Helmet } from 'react-helmet';
 
 function CrearPedidos() {
 
@@ -13,18 +12,6 @@ function CrearPedidos() {
         setSelects_cuantos([...selects_cuantos, selects_cuantos.length]);
         setSelects_tipo([...selects_tipo, selects_tipo.length]);
     };
-    
-    /*const handleSelectCuantosChange = (index_cuantos, e) => {
-        //esto va por index y el numero
-        console.log('Index cuantos:' + index_cuantos + ' Son ' + e.target.value);
-        //handleAddCuantos(e.target.value);
-    }
-
-    const handleSelectTiposChange = (index_tipos, e) => {
-        //esto va por index y el numero
-        console.log('Index tipo:' + index_tipos + ' De ' + e.target.value);
-        //handleAddTipo(e.target.value);
-    }*/
    
     const [datosUsuario, setDatosForm] = useState({
         nombre_cliente: 'Invitado',//Valor: 'Invitado' por defecto

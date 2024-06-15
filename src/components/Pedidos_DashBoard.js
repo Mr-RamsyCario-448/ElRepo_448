@@ -1,11 +1,41 @@
 //import React from "react";
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet";
+import UpdatePedido from "./updatePedido";
+
 
 function Pedidos_DashBoard(){
 
-    const [pedidosData, setPedidosData] = useState([]);
+    //update pedidos stuff
+
+    //pop up para modificar datos
+    const [isPedidosModalOpen, setIsModalOpen] = useState(false);
+
+    const [id_pedidoMod, setId_Pedido] = useState([]);
     
+    const handlePedidosOpenModalUsers = () => {
+        setIsModalOpen(true);
+    };
+
+    const handlePedidosCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handlePedidosSubmitUpdate = async (user, passw, role) => {
+        const requestBody = {
+          user,
+          passw,
+          role
+        };
+    }
+
+    const updatePedido = (id_pedido) => {
+        setId_Pedido(id_pedido);
+        handlePedidosOpenModalUsers();
+    }    
+
+
+    const [pedidosData, setPedidosData] = useState([]);
+
     //Obtener datos
     const fetchData = async () => {
         try {
@@ -14,7 +44,7 @@ function Pedidos_DashBoard(){
             const data = await response.json();
             // Update state with fetched data
             setPedidosData(data);
-            //console.log(data);
+            console.log(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -68,10 +98,12 @@ function Pedidos_DashBoard(){
 
     const deletePedido = async (id_pedido) => {
 
-        if (window.confirm('Eliminar el pedido '+id_pedido+'?')) {
+        //const id_pedido_f = "ObjectID('"+id_pedido+"')";
+        //console.log(id_pedido_f);
+        if (window.confirm('Eliminar el pedido con ID: '+id_pedido+'?')) {
             try {
                 // Perform API call to delete user
-                await fetch(`http://localhost:3001/deluser/${id_pedido}`, {
+                await fetch(`http://localhost:3001/delpedido/${id_pedido}`, {
                     method: "DELETE",
                 });
                 // Refetch data after deletion
@@ -85,8 +117,6 @@ function Pedidos_DashBoard(){
           }
     };
 
-    var numPedido = 0;
-
     return(
         <>
         <nav className="barraNavegacion">
@@ -96,7 +126,6 @@ function Pedidos_DashBoard(){
             
             <a className="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span></a>
         </nav>
-
         <div className="contenedorIndex">
         <h1>Pagina de Pedidos</h1>
         <p>Esta es la pagina de Pedidos</p>
@@ -122,7 +151,7 @@ function Pedidos_DashBoard(){
                             <tr className="filaUsers" key={pedido.nombre_cliente}>
                                 {/*<td>{pedido.id}</td>*/}
                                 {/*por cada pasada que da el script se suma +1 */}
-                                <td>mamadas</td>
+                                <td>{pedido._id}</td>
                                 <td>{pedido.datosUsuario.nombre_cliente}</td>
                                 {/*Esto mappea automaticamente los datos.*/}
                                 <td className="tacos">
@@ -136,8 +165,8 @@ function Pedidos_DashBoard(){
                                 
                                 <td>{pedido.datosUsuario.notas}</td>
                                 <td className="optionButtons">
-                                    <button className="botonModificar" > <span>Modificar</span> </button>
-                                    <button className="botonEliminar" /*onClick={() => deletePedido(user.user)}*/ > <span>Eliminar</span> </button>
+                                    <button className="botonModificar" onClick={() => updatePedido(pedido._id)} > <span>Modificar</span> </button>
+                                    <button className="botonEliminar" onClick={() => deletePedido(pedido._id)} > <span>Eliminar</span> </button>
                                 </td>
                             </tr>
                             
@@ -146,8 +175,14 @@ function Pedidos_DashBoard(){
                         }
                     </tbody>
             </table>
-            </div>
-
+            </div>                  {//Para los pedidos
+                                    <UpdatePedido
+                                        isOpen={isPedidosModalOpen}
+                                        onClose={handlePedidosCloseModal}
+                                        onSubmit={handlePedidosSubmitUpdate}
+                                        id_pedidoMod={id_pedidoMod}
+                                    />
+                                        }            
         </>
     );
 }
