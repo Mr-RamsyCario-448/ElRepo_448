@@ -10,7 +10,7 @@ function Login() {
   const handleLogin = async () => {
 
     try {
-      if (user == '' || passw == ''){
+      if (user === '' || passw === ''){
         return window.alert('Falta llenar alguno de los campos.');
       }
 
@@ -41,7 +41,7 @@ function Login() {
         return window.location.href = '/'; }
         
       else {setMessage('Error: Respuesta inválida del servidor');}
-    } catch (error) { setMessage(error.response.data.message); }
+    } catch (error) { setMessage("Error de Servidor, intente de nuevo mas tarde."); }
   };
 
   const gotoRegister = () => {

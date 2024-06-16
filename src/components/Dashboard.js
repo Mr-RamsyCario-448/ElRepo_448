@@ -44,13 +44,17 @@ function Dashboard(){
 
     const userName = localStorage.getItem('userName');
 
+    if(!isAuthenticated){
+        window.location.href = '/login'
+    }
+
     //preguntamos si tiene el token de inicio de sesion.
     if(isAuthenticated && isAdmin === 'Admin'){
         //console.log('token given!')
         var botonSesion = "Cerrar Sesion";
     }
     else{
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 
     //pop up para modificar datos

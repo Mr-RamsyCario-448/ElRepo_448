@@ -1,7 +1,7 @@
 //import React from "react";
 import React, { useState, useEffect } from "react";
 
-function Pedidos_DashBoard(){
+function Pedidos_DashBoardEntregados(){
 
     //update pedidos stuff
 
@@ -49,14 +49,12 @@ function Pedidos_DashBoard(){
 
     var botonSesion = "Cerrar";
     //preguntamos si tiene el token de inicio de sesion.
-
     if(!isAuthenticated)
         window.location.href = '/login';
 
     if(isAuthenticated && userRole !== 'Admin'){
         window.location.href = '/';
     }
-
     
     //dar formato a lo de pedidos
 
@@ -124,13 +122,13 @@ function Pedidos_DashBoard(){
         <nav className="barraNavegacion">
             <a href="/">Inicio</a>
             <a href="/dashboard">Usuarios</a>
-            <a href="/pedidos_entregados">Pedidos Entregados</a>
+            <a href="/pedidos">Pedidos Pendientes</a>
             <a href="#" onClick={logOut}>{botonSesion} Sesión</a>
             
             <a className="contPerfilUsuario"> <img></img> <span>Hola, {userName}!</span></a>
         </nav>
         <div className="contenedorIndex">
-        <h1>PEDIDOS PENDIENTES</h1>
+        <h1>PEDIDOS ENTREGADOS</h1>
         </div>
 
         <div className="pedidosFondo">
@@ -150,7 +148,7 @@ function Pedidos_DashBoard(){
 
                     <tbody>
                 {pedidosData.map((pedido) => (
-                    pedido.estado !== 'entregado' && (
+                    pedido.estado !== 'pendiente' && (
                             <tr className="filaUsers" key={pedido.nombre_cliente}>
                                 {/*<td>{pedido.id}</td>*/}
                                 {/*por cada pasada que da el script se suma +1 */}
@@ -177,10 +175,9 @@ function Pedidos_DashBoard(){
                 </tbody>
 
             </table>
-    
             </div>                         
         </>
     );
 }
 
-export default Pedidos_DashBoard;
+export default Pedidos_DashBoardEntregados;

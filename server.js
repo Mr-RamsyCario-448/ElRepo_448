@@ -205,7 +205,8 @@ const SchemaPedidos = new mongoose.Schema({
   _id : mongoose.Schema.Types.ObjectId,
   selects_cuantos : Array,
   selects_tipo : Array,
-  datosUsuario: Object
+  datosUsuario: Object,
+  estado: String
 });
 
 const Pedidos = mongoose.model('pedidos', SchemaPedidos);
@@ -276,25 +277,21 @@ app.delete('/delpedido/:id_pedido', async (req, res) => {
 
 
 // Actuaizar un pedido
-app.put('/updatePedido/:id_pedido', async (req, res) => {
+app.put('/updatePedidoCompletado/:id_pedido', async (req, res) => {
 
-  const oldusername = req.params.olduser;
-  const newUser = req.body.user;
-  const newPassw = req.body.passw; 
-  const choosenRole = req.body.role;
-  //const userNewData = req.body;
+  const id_pedido = req.params.id_pedido;
 
   try {
-      const filter = { user: oldusername };
-      const   updateDoc = { 'user':newUser,'passw':newPassw, 'role':choosenRole };
+      const filter = { _id: id_pedido };
+      const updateDoc = { 'estado' : 'entregado'};
       
       // Update the document in the collection
-      const result = await User.updateOne(filter, updateDoc);
+      const result = await Pedidos.updateOne(filter, updateDoc);
 
       if (result.modifiedCount === 1) {
-          res.status(200).json({ message: 'User updated successfully'});
+          res.status(200).json({ message: 'Pedido actualizado'});
       } else {
-          res.status(404).json({ message: 'User not found'});
+          res.status(404).json({ message: 'No se encontro pedido'});
       }
   } catch (error) {
       console.error('Error updating user:', error);

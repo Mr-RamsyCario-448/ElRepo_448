@@ -287,6 +287,14 @@ button:hover span{
     display: inline-block;
 }
 
+.botonAprobar{
+    background-image:url(./icons/aprove.png);
+    background-size: contain;
+    background-color: #40995b; 
+    transition: background-color 0.5s; 
+    display: inline-block;
+}
+
 
 /*Seccion updateUser*/
 

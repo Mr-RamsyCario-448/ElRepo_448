@@ -96,8 +96,10 @@ function CrearPedidos() {
             const combinedData = {
                 selects_cuantos,
                 selects_tipo,
-                datosUsuario
+                datosUsuario,
+                'estado':'pendiente',
             };
+            console.log(combinedData);
             
             const response = await fetch('http://localhost:3001/insertPedido', {
                 method: 'POST',

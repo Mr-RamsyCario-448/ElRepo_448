@@ -7,6 +7,10 @@ const InsertUser = () => {
     //logica de token
     const isAuthenticated = localStorage.getItem('token');
 
+    const isAdmin = localStorage.getItem('userRole');
+
+    const userName = localStorage.getItem('userName');
+
     //preguntamos si tiene el token de inicio de sesion.
     if(isAuthenticated){
         console.log('token given!')
@@ -78,6 +82,13 @@ const InsertUser = () => {
     if(isAuthenticated)
         //console.log('token given!')
         var botonSesion = "Cerrar Sesion";
+
+    if(!isAuthenticated)
+        window.location.href = '/login';
+    
+    if(isAuthenticated && isAdmin !== 'Admin'){
+            window.location.href = '/';
+        }
     
     //debido a que es la ventana principal, solamente cambia el
     //boton de Iniciar o Cerrar Sesion.
