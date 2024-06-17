@@ -295,6 +295,26 @@ button:hover span{
     display: inline-block;
 }
 
+.botonAprobar:hover{
+    background-color: #7eb18d;
+}
+
+
+.botonImprimir{
+    background-image:url(./icons/print-icon.png);
+    background-size: contain;
+    background-color: #afb8d3; 
+    transition: background-color 0.5s; 
+    display: inline-block;
+}
+
+.botonImprimir:hover{
+    background-color: #e6ecff;
+}
+
+
+
+
 
 /*Seccion updateUser*/
 

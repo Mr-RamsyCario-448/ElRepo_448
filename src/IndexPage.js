@@ -46,6 +46,13 @@ function IndexPage(){
     //es necesario el Stringify ya que sin ello la palabra 'Admin' es tomada como referencia en vez de texto, queremos que sea texto.
     //solo existen dos casos, donde sea admin y donde no lo es.
     const scriptRolUsuario = `
+
+    if(${JSON.stringify(userRole)} === 'Cliente' || ${JSON.stringify(userRole)} === 'Admin'){
+        document.getElementById("nav-mis-pedidos").style.visibility = "visible";
+    }
+    else{
+        document.getElementById("nav-mis-pedidos").style.display = "none";
+    }
     
     if(${JSON.stringify(userRole)} === 'Admin'){
         document.getElementById("nav-pedidos").style.visibility = "visible";
@@ -56,6 +63,8 @@ function IndexPage(){
         document.getElementById("nav-pedidos").style.display = "none";
         document.getElementById("nav-users").style.display = "none";
     }
+
+
 
     `;
 
@@ -76,6 +85,9 @@ function IndexPage(){
             {
             /*Seccion para hacer visible o invisble*/
             <>
+
+        
+            <a id="nav-mis-pedidos" href="/mis_pedidos">Mis Pedidos</a>
 
             <a id="nav-pedidos" href="/pedidos">Pedidos</a>
             

@@ -10,6 +10,10 @@ import IndexPage from './IndexPage';
 import Pedidos_DashBoard from './components/Pedidos_DashBoard';
 import CrearPedidos from './components/CrearPedidos';
 import Pedidos_DashBoardEntregados from './components/Pedidos_DashBoardEntregados';
+import Mis_Pedidos_Dashboard from './components/Mis_Pedidos.js';
+
+
+
 
 
 function App() {
@@ -28,6 +32,7 @@ function App() {
         <Route path="/updateUser" element={<UpdateUser/>} />  
         <Route path="/register" element={<RegisterUser/>} />
         <Route path="/pedidos_entregados" element={<Pedidos_DashBoardEntregados/>} />
+        <Route path="/mis_pedidos" element={<Mis_Pedidos_Dashboard/>} />
 
       </Routes>
     </Router>

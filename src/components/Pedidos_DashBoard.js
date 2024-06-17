@@ -15,7 +15,7 @@ function Pedidos_DashBoard(){
             const data = await response.json();
             // Update state with fetched data
             setPedidosData(data);
-            console.log(data);
+            //console.log(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
