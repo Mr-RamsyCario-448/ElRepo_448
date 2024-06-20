@@ -14,7 +14,7 @@ function Login() {
         return window.alert('Falta llenar alguno de los campos.');
       }
 
-      const response = await axios.post('http://54.160.176.26/login', {
+      const response = await axios.post('http://localhost:3001/login', {
         user,
         passw,
       });
