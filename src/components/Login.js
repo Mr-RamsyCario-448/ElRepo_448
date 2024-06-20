@@ -14,7 +14,7 @@ function Login() {
         return window.alert('Falta llenar alguno de los campos.');
       }
 
-      const response = await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.post('http://34.192.211.85/api/login', {
         user,
         passw,
       });
