@@ -13,7 +13,7 @@ function Login() {
       }
 
       // Replace 'YOUR_API_ENDPOINT' with the endpoint provided by API Gateway
-      const response = await axios.post('/localhost:3001/login', {
+      const response = await axios.post('/localhost:3001/api/login', {
         user,
         passw,
       });
