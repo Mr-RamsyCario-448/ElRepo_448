@@ -19,7 +19,7 @@ function Dashboard(){
         try {
             //console.log('pro:'+userSearch)
             // Perform API call to fetch data from MongoDB Atlas
-            const response = await fetch(`http://54.160.176.26//searchuser/${userSearch}`);
+            const response = await fetch(`http://34.192.211.85/api/searchuser/${userSearch}`);
             const data = await response.json();
             //si no encuentra coincidencias no se actualiza la tabla
             //console.log(data.length);
@@ -82,7 +82,7 @@ function Dashboard(){
 
         console.log(requestBody);
 
-        const response = await fetch(`http://54.160.176.26//updateUser/${oldUserName}`, {
+        const response = await fetch(`http://34.192.211.85/api/updateUser/${oldUserName}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ function Dashboard(){
     const fetchData = async () => {
         try {
             // Perform API call to fetch data from MongoDB Atlas
-            const response = await fetch("http://54.160.176.26//users");
+            const response = await fetch("http://34.192.211.85/api/users");
             const data = await response.json();
             // Update state with fetched data
             setUserData(data);
@@ -149,7 +149,7 @@ function Dashboard(){
         if (window.confirm('Eliminar a '+user+'?')) {
             try {
                 // Perform API call to delete user
-                await fetch(`http://54.160.176.26//deluser/${user}`, {
+                await fetch(`http://34.192.211.85/api/deluser/${user}`, {
                     method: "DELETE",
                 });
                 // Refetch data after deletion
