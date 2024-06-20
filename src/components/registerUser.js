@@ -25,7 +25,7 @@ const RegisterUser = () => {
             const hashedPassword = await bcrypt.hash(formData.passw, saltRounds);
             formData.passw = hashedPassword;
 
-            const response = await fetch('http://localhost:3001/api/insertUser', {
+            const response = await fetch('http://34.192.211.85/api/insertUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
