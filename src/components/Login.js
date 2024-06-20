@@ -30,7 +30,6 @@ function Login() {
 
       //se busca al usuario, su rol y este se agrega a una variable en localStorage
       //const userRoleReq = await fetch(`http://localhost:3001/searchuser/${user}`);
-
       
       //ocalStorage.setItem('userRole', userRole);
 
