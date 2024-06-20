@@ -15,11 +15,10 @@ function Login() {
       }
 
 
-      const response = await axios.post('http://localhost:3001/api/login', {
+      const response = await axios.post('http://localhost:3001/login', {
         user,
         passw,
       });
-
 
       //genera un Token al iniciar sesion
       localStorage.setItem('token', response.data.token);
