@@ -15,7 +15,7 @@ function Login() {
       }
 
 
-      const response = await axios.post('http://3.91.94.236:3001/login', {
+      const response = await axios.post('http://locahost:3001/login', {
         user,
         passw,
       });
