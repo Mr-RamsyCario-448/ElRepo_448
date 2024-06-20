@@ -101,7 +101,7 @@ function CrearPedidos() {
             };
             console.log(combinedData);
             
-            const response = await fetch('http://localhost:3001/insertPedido', {
+            const response = await fetch('http://54.160.176.26//insertPedido', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

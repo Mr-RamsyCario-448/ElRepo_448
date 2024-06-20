@@ -20,7 +20,7 @@ function createUser(){
             
 
             try {
-                const response = await fetch('http://localhost:3001/createUser', {
+                const response = await fetch('http://54.160.176.26//createUser', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

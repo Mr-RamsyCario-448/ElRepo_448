@@ -11,7 +11,7 @@ function Pedidos_DashBoardEntregados(){
     const fetchData = async () => {
         try {
             // Perform API call to fetch data from MongoDB Atlas
-            const response = await fetch("http://localhost:3001/pedidos");
+            const response = await fetch("http://54.160.176.26//pedidos");
             const data = await response.json();
             // Update state with fetched data
             setPedidosData(data);
@@ -73,7 +73,7 @@ function Pedidos_DashBoardEntregados(){
         if (window.confirm('Eliminar el pedido con ID: '+id_pedido+'?')) {
             try {
                 // Perform API call to delete user
-                await fetch(`http://localhost:3001/delpedido/${id_pedido}`, {
+                await fetch(`http://54.160.176.26//delpedido/${id_pedido}`, {
                     method: "DELETE",
                 });
                 // Refetch data after deletion
@@ -95,7 +95,7 @@ function Pedidos_DashBoardEntregados(){
         }
         try {
 
-            const response = await fetch(`http://localhost:3001/updatePedidoCompletado/${id_ped}`, {
+            const response = await fetch(`http://54.160.176.26//updatePedidoCompletado/${id_ped}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'

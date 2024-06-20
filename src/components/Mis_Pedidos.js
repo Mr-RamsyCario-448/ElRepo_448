@@ -13,7 +13,7 @@ function Mis_Pedidos_Dashboard(){
     const fetchData = async () => {
         try {
             // Perform API call to fetch data from MongoDB Atlas
-            const response = await fetch("http://localhost:3001/pedidos");
+            const response = await fetch("http://54.160.176.26//pedidos");
             const data = await response.json(); 
             // Update state with fetched data
             setPedidosData(data);

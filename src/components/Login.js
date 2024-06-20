@@ -14,11 +14,11 @@ function Login() {
         return window.alert('Falta llenar alguno de los campos.');
       }
 
-
-      const response = await axios.post('http://localhost:3001/trylogin', {
+      const response = await axios.post('http://54.160.176.26/login', {
         user,
         passw,
       });
+
 
       //genera un Token al iniciar sesion
       localStorage.setItem('token', response.data.token);
@@ -29,7 +29,8 @@ function Login() {
       localStorage.setItem ('userName', response.data.username);
 
       //se busca al usuario, su rol y este se agrega a una variable en localStorage
-      //const userRoleReq = await fetch(`http://localhost:3001/searchuser/${user}`);
+      //const userRoleReq = await fetch(`http://54.160.176.26//searchuser/${user}`);
+
       
       //ocalStorage.setItem('userRole', userRole);
 
